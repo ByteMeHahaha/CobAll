@@ -4,12 +4,46 @@ IDENTIFICATION DIVISION.
 ENVIRONMENT DIVISION.
   INPUT-OUTPUT SECTION.
     FILE-CONTROL.
-      SELECT Debug-Log-File ASSIGN TO 'Debug.log'
+      SELECT Debug-Log-File ASSIGN TO "Debug.log"
       ORGANISATION LINE SEQUENTIAL
-      ACCESS MODE SEQUENTIAL.
+      ACCESS MODE SEQUENTIAL
+      FILE STATUS WS-Debug-File-Status.
+
+DATA DIVISION.
+  FILE SECTION.
+    FD Debug-Log-File.
+      *> One line in the debug file.
+      01 DLF-Debug-Line PIC X(80).
+
+  WORKING-STORAGE SECTION.
+    01 WS-Debug-File-Status PIC XX.
+    01 WS-Debug-Line PIC X(80).
 
 PROCEDURE DIVISION.
-  DISPLAY 'Hello World'.
+  OPEN OUTPUT Debug-Log-File.
+  DISPLAY "Open Status: " WS-Debug-File-Status.
+
+  MOVE SPACES TO WS-Debug-Line.
+
+  STRING
+    FUNCTION CURRENT-DATE(1:8) DELIMITED BY SIZE
+    " at " DELIMITED BY SIZE
+    FUNCTION CURRENT-DATE(9:2) DELIMITED BY SIZE
+    ":" DELIMITED BY SIZE
+    FUNCTION CURRENT-DATE(11:2) DELIMITED BY SIZE
+    " - " DELIMITED BY SIZE
+    "Heyo" DELIMITED BY SIZE
+
+    INTO WS-Debug-Line
+  END-STRING
+
+  MOVE WS-Debug-Line TO DLF-Debug-Line.
+  WRITE DLF-Debug-Line.
+  DISPLAY "WRITE STATUS: " WS-Debug-File-Status.
+
+  CLOSE Debug-Log-File.
+  DISPLAY "CLOSE STATUS: " WS-Debug-File-Status.
+
   STOP RUN.
 
 END PROGRAM CobAll.

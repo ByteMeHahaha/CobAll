@@ -1,0 +1,25 @@
+project-meta:
+  project-name: CobAll
+  date-started: 2026-04-19
+  last-updated: 2026-04-19
+  languages:
+    - COBOL
+  status: Experimental
+  license: MIT
+  version: 0.0.1
+build:
+  dev-environments:
+    - Windows 11
+  target-platforms:
+    - Windows 11
+    - Windows 10
+  compiler:
+    compiler-name: cobc
+    compiler-version: 3.2.0
+
+team:
+  author: Ethan Kletschke
+  contributors:
+    - name: Ethan Kletschke
+      role: Author and owner
+      github-username: ethanKletschke
