@@ -31,7 +31,6 @@ DATA DIVISION.
 
 PROCEDURE DIVISION.
   OPEN OUTPUT Debug-Log-File.
-  DISPLAY "Open Status: " WS-Debug-File-Status.
 
   MOVE SPACES TO WS-Debug-Line.
 
@@ -54,10 +53,8 @@ PROCEDURE DIVISION.
 
   MOVE WS-Debug-Line TO DLF-Debug-Line.
   WRITE DLF-Debug-Line.
-  DISPLAY "WRITE STATUS: " WS-Debug-File-Status.
 
   CLOSE Debug-Log-File.
-  DISPLAY "CLOSE STATUS: " WS-Debug-File-Status.
 
   STOP RUN.
 
