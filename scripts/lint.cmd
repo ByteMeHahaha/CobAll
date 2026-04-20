@@ -1,4 +1,5 @@
 cobc -I ../src ^
+  -I ../src/ui ^
   -free ^
   -fsyntax-only ^
   ../src/*.cob ^
