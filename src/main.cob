@@ -41,9 +41,18 @@ PROCEDURE DIVISION.
   WriteDebugMessage.
     PERFORM InitialiseDate.
 
-    OPEN OUTPUT Debug-Log-File.
+    *> Attempt to open the debug file to append to it
+    OPEN EXTEND Debug-Log-File.
+
+    *> If it can't open successfully
+    IF WS-Debug-File-Status NOT EQUAL "00" THEN
+      *> Overwrite the file (or create it)
+      OPEN OUTPUT Debug-Log-File
+    END-IF.
+
     MOVE SPACES TO WS-Debug-Line.
 
+    *> Build the debug log line
     STRING
       WS-Date DELIMITED BY SIZE
       " at " DELIMITED BY SIZE
@@ -51,6 +60,7 @@ PROCEDURE DIVISION.
       " - " DELIMITED BY SIZE
       FUNCTION TRIM(WS-Debug-Message) DELIMITED BY SIZE
 
+      *> e.g.: 2026-04-20 at 10:24 - Heyo
       INTO WS-Debug-Line
     END-STRING.
 
