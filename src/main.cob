@@ -31,6 +31,9 @@ DATA DIVISION.
       05 FILLER VALUE ":".
       05 WS-Minute PIC 99.
 
+  SCREEN SECTION.
+    COPY "Debug.cpy".
+
 PROCEDURE DIVISION.
   MainCode.
     MOVE "Heyo" TO WS-Debug-Message.
