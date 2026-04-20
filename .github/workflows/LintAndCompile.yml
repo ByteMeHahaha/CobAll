@@ -11,7 +11,7 @@ jobs:
       - name: Set up GnuCOBOL
         uses: fabasoad/setup-cobol-action@v1.6.1
       - name: Lint code
-        run: cobc -fsyntax-only -I ./src ./src/*.cob -Wall -Wextra -Wno-terminator
+        run: cobc -fsyntax-only -I ./src -I ./src/ui ./src/*.cob -Wall -Wextra -Wno-terminator
   compile:
     needs: lint
     runs-on: ubuntu-latest
@@ -21,4 +21,4 @@ jobs:
       - name: Set up GnuCOBOL
         uses: fabasoad/setup-cobol-action@v1.6.1
       - name: Compile code
-        run: cobc -x ./src/main.cob ./src/*.cob -o CobAll -w -q
+        run: cobc -I ./src -I ./src/ui -x ./src/main.cob ./src/*.cob -o CobAll -w -q
