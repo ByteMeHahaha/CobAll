@@ -39,8 +39,12 @@ DATA DIVISION.
 
 PROCEDURE DIVISION.
   MainCode.
-    MOVE "Heyo" TO WS-Debug-Message.
+    DISPLAY SC-Debug-Screen.
+
+    MOVE "Debug Screen Shown" TO WS-Debug-Message.
     PERFORM WriteDebugMessage.
+
+    ACCEPT OMITTED.
 
     STOP RUN.
 
