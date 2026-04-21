@@ -4,6 +4,7 @@ IDENTIFICATION DIVISION.
 ENVIRONMENT DIVISION.
   INPUT-OUTPUT SECTION.
     FILE-CONTROL.
+      *> Debug log file
       SELECT Debug-Log-File ASSIGN TO "Debug.log"
       ORGANISATION LINE SEQUENTIAL
       ACCESS MODE SEQUENTIAL
@@ -31,7 +32,9 @@ DATA DIVISION.
       05 FILLER VALUE ":".
       05 WS-Minute PIC 99.
 
+  *> Menus and
   SCREEN SECTION.
+    *> Debug menu
     COPY "Debug.cpy".
 
 PROCEDURE DIVISION.
@@ -41,6 +44,7 @@ PROCEDURE DIVISION.
 
     STOP RUN.
 
+  *> Writes debug info to the log file
   WriteDebugMessage.
     PERFORM InitialiseDate.
 
@@ -53,6 +57,7 @@ PROCEDURE DIVISION.
       OPEN OUTPUT Debug-Log-File
     END-IF.
 
+    *> Initialise the debug log line
     MOVE SPACES TO WS-Debug-Line.
 
     *> Build the debug log line
@@ -67,11 +72,13 @@ PROCEDURE DIVISION.
       INTO WS-Debug-Line
     END-STRING.
 
+    *> Write the debug line to the debug file.
     MOVE WS-Debug-Line TO DLF-Debug-Line.
     WRITE DLF-Debug-Line.
 
     CLOSE Debug-Log-File.
 
+  *> Initialises the date for the log file.
   InitialiseDate.
     MOVE FUNCTION CURRENT-DATE(1:4) TO WS-Year.
     MOVE FUNCTION CURRENT-DATE(5:2) TO WS-Month.
