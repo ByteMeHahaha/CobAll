@@ -1,5 +1,7 @@
 # CobAll
 
+[![Lint and Compile](https://github.com/ByteMeHahaha/CobAll/actions/workflows/LintAndCompile.yml/badge.svg)](https://github.com/ByteMeHahaha/CobAll/actions/workflows/LintAndCompile.yml)
+
 A COBOL app that combines different functionalities of COBOL into one app as a
 demo.
 
