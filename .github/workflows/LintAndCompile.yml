@@ -12,6 +12,7 @@ jobs:
         uses: fabasoad/setup-cobol-action@v1.6.1
       - name: Lint code
         run: cobc -fsyntax-only -I ./src -I ./src/ui ./src/*.cob -Wall -Wextra -Wno-terminator
+
   compile:
     needs: lint
     runs-on: ubuntu-latest

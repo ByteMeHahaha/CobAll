@@ -21,30 +21,40 @@ DATA DIVISION.
     01 WS-Debug-File-Writing.
       05 WS-Debug-Line PIC X(80).
       05 WS-Debug-Message PIC X(40).
+      05 WS-Debug-Level PIC A(4).
     01 WS-Date.
       05 WS-Year PIC 9999.
-      05 FILLER VALUE "-".
+      05 FILLER PIC X VALUE "-".
       05 WS-Month PIC 99.
-      05 FILLER VALUE "-".
+      05 FILLER PIC X VALUE "-".
       05 WS-Day PIC 99.
     01 WS-Time.
       05 WS-Hour PIC 99.
-      05 FILLER VALUE ":".
+      05 FILLER PIC X VALUE ":".
       05 WS-Minute PIC 99.
 
-  *> Menus and
+  *> Menus and other screens
   SCREEN SECTION.
     *> Debug menu
     COPY "Debug.cpy".
 
 PROCEDURE DIVISION.
   MainCode.
+    MOVE "INF" TO WS-Debug-Level.
+    MOVE "Program Started" TO WS-Debug-Message.
+    PERFORM WriteDebugMessage.
+
     DISPLAY SC-Debug-Screen.
 
+    MOVE "DBG" TO WS-Debug-Level.
     MOVE "Debug Screen Shown" TO WS-Debug-Message.
     PERFORM WriteDebugMessage.
 
     ACCEPT OMITTED.
+
+    MOVE "INF" TO WS-Debug-Level.
+    MOVE "Program Closing" TO WS-Debug-Message.
+    PERFORM WriteDebugMessage.
 
     STOP RUN.
 
@@ -67,20 +77,24 @@ PROCEDURE DIVISION.
     *> Build the debug log line
     STRING
       WS-Date DELIMITED BY SIZE
-      " at " DELIMITED BY SIZE
+      ", " DELIMITED BY SIZE
       WS-Time DELIMITED BY SIZE
-      " - " DELIMITED BY SIZE
+      " [" DELIMITED BY SIZE
+      FUNCTION TRIM(WS-Debug-Level) DELIMITED BY SIZE
+      "] " DELIMITED BY SIZE
       FUNCTION TRIM(WS-Debug-Message) DELIMITED BY SIZE
 
-      *> e.g.: 2026-04-20 at 10:24 - Heyo
+      *> e.g.: 2026-04-20, 10:24 [DEBUG] Test
       INTO WS-Debug-Line
     END-STRING.
 
-    *> Write the debug line to the debug file.
+    *> Write the debug line to the debug file and close it.
     MOVE WS-Debug-Line TO DLF-Debug-Line.
     WRITE DLF-Debug-Line.
-
     CLOSE Debug-Log-File.
+
+    *> Initialise the debug variables
+    PERFORM InitialiseDebugInfo.
 
   *> Initialises the date for the log file.
   InitialiseDate.
@@ -90,5 +104,10 @@ PROCEDURE DIVISION.
 
     MOVE FUNCTION CURRENT-DATE(9:2) TO WS-Hour.
     MOVE FUNCTION CURRENT-DATE(11:2) TO WS-Minute.
+
+  InitialiseDebugInfo.
+    MOVE SPACES TO WS-Debug-Level.
+    MOVE SPACES TO WS-Debug-Message.
+    MOVE SPACES TO WS-Debug-Line.
 
 END PROGRAM CobAll.
