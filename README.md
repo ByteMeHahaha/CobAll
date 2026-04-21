@@ -32,3 +32,4 @@ Alongside new features, such as:
 - Code split into different paragraphs
 - Writing debug logs to a file
 - A menu screen to decide what you want to do
+- A settings menu reading configs from a file
