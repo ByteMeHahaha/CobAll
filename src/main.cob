@@ -67,6 +67,9 @@ PROCEDURE DIVISION.
 
     *> If it can't open successfully
     IF WS-Debug-File-Status NOT EQUAL "00" THEN
+      *> Store a message for the new log file
+      MOVE "WARN" TO WS-Debug-Level
+      MOVE "Debug File Recreated" TO WS-Debug-Message
       *> Overwrite the file (or create it)
       OPEN OUTPUT Debug-Log-File
     END-IF.
