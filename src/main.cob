@@ -32,11 +32,13 @@ DATA DIVISION.
       05 WS-Hour PIC 99.
       05 FILLER PIC X VALUE ":".
       05 WS-Minute PIC 99.
+    01 WS-User-Input.
+      05 WS-Main-Menu-Choice PIC X VALUE "0".
 
   *> Menus and other screens
   SCREEN SECTION.
-    *> Debug menu
-    COPY "Debug.cpy".
+    COPY "Debug.cpy". *> Debug menu
+    COPY "Menu.cpy". *> Main Menu
 
 PROCEDURE DIVISION.
   MainCode.
@@ -44,10 +46,27 @@ PROCEDURE DIVISION.
     MOVE "Program Started" TO WS-Debug-Message.
     PERFORM WriteDebugMessage.
 
+    DISPLAY SC-Main-Menu.
+
+    MOVE "DBG" TO WS-Debug-Level.
+    MOVE "Main Menu Screen Shown" TO WS-Debug-Message.
+    PERFORM WriteDebugMessage.
+
+    ACCEPT SC-Main-Menu.
+
+    MOVE "INF" TO WS-Debug-Level.
+    STRING
+      "User picked menu item: " DELIMITED BY SIZE
+      WS-Main-Menu-Choice DELIMITED BY SIZE
+
+      INTO WS-Debug-Message
+    END-STRING.
+    PERFORM WriteDebugMessage.
+
     DISPLAY SC-Debug-Screen.
 
     MOVE "DBG" TO WS-Debug-Level.
-    MOVE "Debug Screen Shown" TO WS-Debug-Message.
+    MOVE "Debug screen shown" TO WS-Debug-Message.
     PERFORM WriteDebugMessage.
 
     ACCEPT OMITTED.

@@ -6,7 +6,7 @@ project-meta:
     - COBOL
   status: Experimental
   license: MIT
-  version: 0.0.3
+  version: 0.0.4
 build:
   dev-environments:
     - Windows 11
