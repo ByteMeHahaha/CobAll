@@ -22,18 +22,23 @@ DATA DIVISION.
       05 WS-Debug-Line PIC X(80).
       05 WS-Debug-Message PIC X(40).
       05 WS-Debug-Level PIC A(4).
+
     01 WS-Date.
       05 WS-Year PIC 9999.
       05 FILLER PIC X VALUE "-".
       05 WS-Month PIC 99.
       05 FILLER PIC X VALUE "-".
       05 WS-Day PIC 99.
+
     01 WS-Time.
       05 WS-Hour PIC 99.
       05 FILLER PIC X VALUE ":".
       05 WS-Minute PIC 99.
+
+    *> User-provided values for use
+    *> throughout the program
     01 WS-User-Input.
-      05 WS-Main-Menu-Choice PIC X VALUE "0".
+      05 WS-Main-Menu-Choice PIC 9 VALUE "0".
 
   *> Menus and other screens
   SCREEN SECTION.

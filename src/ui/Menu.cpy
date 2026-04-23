@@ -13,6 +13,6 @@
   05 LINE 11 COL 7 VALUE "4. Exit".
 
   05 LINE 13 COL 3 VALUE "Your choice: ".
-  05 LINE 13 COL + 1 PIC X USING WS-Main-Menu-Choice
+  05 LINE 13 COL + 1 PIC 9 USING WS-Main-Menu-Choice
     REVERSE-VIDEO
     REQUIRED.
