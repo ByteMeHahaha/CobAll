@@ -14,12 +14,13 @@ DATA DIVISION.
   FILE SECTION.
     FD Debug-Log-File.
       *> One line in the debug file.
-      01 DLF-Debug-Line PIC X(80).
+      01 DLF-Debug-Line PIC X(120).
 
   WORKING-STORAGE SECTION.
     *> Log file status
     01 WS-Debug-File-Status PIC XX.
       88 Opened-Successfully VALUE "00".
+      88 File-Not-Found VALUE "35".
 
     *> Log levels for debug file
     01 WS-Log-Levels.
@@ -30,8 +31,8 @@ DATA DIVISION.
 
     *> Temp storage for writing to the debug file
     01 WS-Debug-File-Writing.
-      05 WS-Debug-Line PIC X(80).
-      05 WS-Debug-Message PIC X(40).
+      05 WS-Debug-Line PIC X(120).
+      05 WS-Debug-Message PIC X(80).
       05 WS-Debug-Level PIC A(4).
 
     *> Today's date in ISO Format, used in the log file
@@ -76,34 +77,41 @@ PROCEDURE DIVISION.
     *> Accept input for the main menu screen
     ACCEPT SC-Main-Menu.
 
-    *> Write the chosen menu item to the log file
-    MOVE "INF" TO WS-Debug-Level.
-    STRING
-      "User picked menu item: " DELIMITED BY SIZE
-      WS-Main-Menu-Choice DELIMITED BY SIZE
+    *> Determine what to do depending on the menu choice
+    EVALUATE WS-Main-Menu-Choice
+      *> TODO -> Change Temp Logic
+      WHEN 1 THRU 3
+        DISPLAY SC-Debug-Screen
 
-      INTO WS-Debug-Message
-    END-STRING.
-    PERFORM WriteDebugMessage.
+        *> Write to the debug log
+        MOVE "DBG" TO WS-Debug-Level
+        MOVE "Debug screen shown" TO WS-Debug-Message
+        PERFORM WriteDebugMessage
 
-    *> Display the debug screen
-    DISPLAY SC-Debug-Screen.
+        ACCEPT OMITTED
 
-    *> Write to the debug log
-    MOVE "DBG" TO WS-Debug-Level.
-    MOVE "Debug screen shown" TO WS-Debug-Message.
-    PERFORM WriteDebugMessage.
+        PERFORM CloseProgram
+      *> User chose to exit
+      WHEN 4
+        MOVE "INF" TO WS-Debug-Level
+        MOVE "Exiting with status 0 (menu option 4)" TO WS-Debug-Message
+        PERFORM WriteDebugMessage
+        STOP RUN WITH NORMAL STATUS 0
 
-    *> "Press enter to exit"
-    ACCEPT OMITTED.
+      WHEN OTHER
+        MOVE "ERR" TO WS-Debug-Level
+        STRING
+          "Invalid menu option: " DELIMITED BY SIZE
+          WS-Main-Menu-Choice DELIMITED BY SIZE
+          ". Exiting with code 404" DELIMITED BY SIZE
 
-    *> Write the app being closed to the debug log
-    MOVE "INF" TO WS-Debug-Level.
-    MOVE "Program Closing" TO WS-Debug-Message.
-    PERFORM WriteDebugMessage.
+          INTO WS-Debug-Message
+        END-STRING
 
-    *> Close the app
-    STOP RUN.
+        PERFORM WriteDebugMessage
+        STOP RUN WITH ERROR 404
+
+    END-EVALUATE.
 
   *> Writes debug info to the log file
   WriteDebugMessage.
@@ -163,5 +171,11 @@ PROCEDURE DIVISION.
     MOVE SPACES TO WS-Debug-Level.
     MOVE SPACES TO WS-Debug-Message.
     MOVE SPACES TO WS-Debug-Line.
+
+  CloseProgram.
+    MOVE "INF" TO WS-Debug-Level.
+    MOVE "Exiting with status 0" TO WS-Debug-Message.
+    PERFORM WriteDebugMessage.
+    STOP RUN WITH NORMAL STATUS 0.
 
 END PROGRAM CobAll.
