@@ -104,6 +104,8 @@ PROCEDURE DIVISION.
         MOVE "Settings Menu Displayed" TO WS-Log-Message
         PERFORM WriteDebugMessage
 
+        *> Prevent user from exiting the settings screen if they don't
+        *> enter a "Y" in the "back?" field
         PERFORM UNTIL FUNCTION LOWER-CASE(WS-Settings-GoBack) EQUALS "y"
           ACCEPT SC-Settings
         END-PERFORM

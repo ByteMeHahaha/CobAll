@@ -1,5 +1,6 @@
 name: Lint and Compile
 
+# TODO => Add pull_request trigger at v1.0.0
 on: [workflow_dispatch, push]
 
 jobs:

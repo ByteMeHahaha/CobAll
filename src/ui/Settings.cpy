@@ -7,4 +7,5 @@
   *> TODO => Replace values below with input fields
   05 LINE 6 COL 3 VALUE "Debug Logging: On".
   05 LINE 8 COL 3 VALUE "Back? (Y/N) ".
-  05 LINE 8 COL + 1 PIC A USING WS-Settings-GoBack.
+  05 LINE 8 COL + 1 PIC A USING WS-Settings-GoBack
+    REQUIRED.
