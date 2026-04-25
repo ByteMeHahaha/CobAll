@@ -1,12 +1,12 @@
 project-meta:
   project-name: CobAll
   date-started: 2026-04-19
-  last-updated: 2026-04-24
+  last-updated: 2026-04-25
   languages:
     - COBOL
   status: Experimental
   license: MIT
-  version: 0.0.4
+  version: 0.0.5
 build:
   dev-environments:
     - Windows 11
