@@ -14,13 +14,15 @@ DATA DIVISION.
     *> throughout the program
     01 WS-User-Input.
       *> Choice of which screen to go to on the main menu
-      05 WS-Main-Menu-Choice PIC 9 VALUE 0.
+      05 WS-Menu-Choice PIC 9 VALUE 0.
         88 ValidMenuChoice VALUE 1 THRU 4.
       *> Option on settings screen to return to the menu screen
       05 WS-Settings-GoBack PIC A VALUE "N".
 
     01 WS-Log-Level PIC A(4).
     01 WS-Message PIC X(80).
+
+    01 WS-Temp-Msg PIC X(80).
 
   *> Menus and other screens
   SCREEN SECTION.
@@ -30,10 +32,34 @@ DATA DIVISION.
 
 PROCEDURE DIVISION.
   MainCode.
+    DISPLAY SC-Menu.
+
     MOVE "INF" TO WS-Log-Level.
-    MOVE "Test" TO WS-Message.
+    MOVE "Program Started" TO WS-Message.
     CALL "WriteDebugLog" USING WS-Log-Level WS-Message.
 
+    ACCEPT SC-Menu.
+
+    MOVE "INF" TO WS-Log-Level.
+    STRING
+      "User picked menu item: " DELIMITED BY SIZE
+      WS-Menu-Choice DELIMITED BY SIZE
+      INTO WS-Temp-Msg
+    END-STRING.
+    MOVE WS-Temp-Msg TO WS-Message.
+    CALL "WriteDebugLog" USING WS-Log-Level WS-Message.
+
+    PERFORM ShowDebugScreen.
+
     STOP RUN.
+
+  ShowDebugScreen.
+    DISPLAY SC-Debug.
+
+    MOVE "DBG" TO WS-Log-Level.
+    MOVE "Debug Screen Shown" TO WS-Message.
+    CALL "WriteDebugLog" USING WS-Log-Level WS-Message.
+
+    ACCEPT OMITTED.
 
 END PROGRAM CobAll.

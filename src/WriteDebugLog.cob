@@ -30,20 +30,22 @@ DATA DIVISION.
       88 Opened-Successfully VALUE "00".
       88 File-Not-Found VALUE "35".
 
-    01 WS-Log-Line PIC X(120).
-
     *> Current time, used for the log file
     01 WS-Time.
       05 WS-Hour PIC 99.
       05 FILLER PIC X VALUE ":".
       05 WS-Minute PIC 99.
 
+  LOCAL-STORAGE SECTION.
+    01 LS-Log-Line PIC X(120).
+
+  *> Subroutine Parameters
   LINKAGE SECTION.
     01 LK-Log-Level PIC A(4).
     01 LK-Message PIC X(80).
 
   SCREEN SECTION.
-    COPY "LogError.cpy".
+    COPY "LogError.cpy". *> Debug Log Writing Error Screen
 
 PROCEDURE DIVISION USING LK-Log-Level LK-Message.
   *> Store the current date in the respective variables
@@ -79,13 +81,12 @@ PROCEDURE DIVISION USING LK-Log-Level LK-Message.
     FUNCTION TRIM(LK-Message) DELIMITED BY SIZE
 
     *> e.g.: 2026-04-20, 10:24 [DBG] Test
-    INTO WS-Log-Line
+    INTO LS-Log-Line
   END-STRING.
 
   *> Write the debug line to the debug file and close it.
-  MOVE WS-Log-Line TO DLF-Debug-Line.
+  MOVE LS-Log-Line TO DLF-Debug-Line.
   WRITE DLF-Debug-Line.
-
   CLOSE Debug-Log-File.
 
   GOBACK.

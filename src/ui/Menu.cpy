@@ -1,5 +1,5 @@
 *> Menu Screen
-01 SC-Main-Menu
+01 SC-Menu
   BACKGROUND-COLOUR 7
   FOREGROUND-COLOUR 0.
   05 BLANK SCREEN.
@@ -13,6 +13,6 @@
   05 LINE 11 COL 7 VALUE "4. Exit".
 
   05 LINE 13 COL 3 VALUE "Your choice: ".
-  05 LINE 13 COL + 1 PIC 9 USING WS-Main-Menu-Choice
+  05 LINE 13 COL + 1 PIC 9 USING WS-Menu-Choice
     REVERSE-VIDEO
     REQUIRED.
