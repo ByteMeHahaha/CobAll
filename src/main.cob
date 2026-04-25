@@ -54,6 +54,7 @@ DATA DIVISION.
     01 WS-User-Input.
       *> Choice of which screen to go to on the main menu
       05 WS-Main-Menu-Choice PIC 9 VALUE 0.
+        88 ValidMenuChoice VALUE 1 THRU 4.
       *> Option on settings screen to return to the menu screen
       05 WS-Settings-GoBack PIC A VALUE "N".
 
