@@ -42,6 +42,9 @@ DATA DIVISION.
     01 LK-Log-Level PIC A(4).
     01 LK-Message PIC X(80).
 
+  SCREEN SECTION.
+    COPY "LogError.cpy".
+
 PROCEDURE DIVISION USING LK-Log-Level LK-Message.
   *> Store the current date in the respective variables
   MOVE FUNCTION CURRENT-DATE(1:4) TO WS-Year.
@@ -59,7 +62,8 @@ PROCEDURE DIVISION USING LK-Log-Level LK-Message.
       OPEN OUTPUT Debug-Log-File
   ELSE
       IF NOT Opened-Successfully THEN
-          DISPLAY "OPEN Error: " WS-Debug-File-Status
+          DISPLAY SC-Log-Error
+          ACCEPT OMITTED
           GOBACK
       END-IF
   END-IF.
