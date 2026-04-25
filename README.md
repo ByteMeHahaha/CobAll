@@ -15,6 +15,7 @@ demo.
 
 - [CobAll](#coball)
   - [About CobAll](#about-coball)
+    - [Notes About User Input](#notes-about-user-input)
 
 ---
 
@@ -35,3 +36,8 @@ Alongside new features, such as:
 - Writing debug logs to a file
 - A main menu screen to decide what you want to do
 - A settings menu reading configs from a file
+
+### Notes About User Input
+
+Because the "GUI" is just a "styled" terminal screen (text-based user interface)
+and not a proper GUI.

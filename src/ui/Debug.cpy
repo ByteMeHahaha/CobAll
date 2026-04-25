@@ -1,5 +1,5 @@
 *> Debug screen
-01 SC-Debug-Screen
+01 SC-Debug
   BACKGROUND-COLOUR 7 *> White
   FOREGROUND-COLOUR 0. *> Black
   *> Clear the terminal screen.

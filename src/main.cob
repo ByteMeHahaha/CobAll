@@ -31,9 +31,9 @@ DATA DIVISION.
 
     *> Temp storage for writing to the debug file
     01 WS-Debug-File-Writing.
-      05 WS-Debug-Line PIC X(120).
-      05 WS-Debug-Message PIC X(80).
-      05 WS-Debug-Level PIC A(4).
+      05 WS-Log-Line PIC X(120).
+      05 WS-Log-Message PIC X(80).
+      05 WS-Log-Level PIC A(4).
 
     *> Today's date in ISO Format, used in the log file
     01 WS-Date.
@@ -66,16 +66,16 @@ DATA DIVISION.
 PROCEDURE DIVISION.
   MainCode.
     *> Log the program start to the debug file
-    MOVE "INF" TO WS-Debug-Level.
-    MOVE "Program Started" TO WS-Debug-Message.
+    MOVE "INF" TO WS-Log-Level.
+    MOVE "Program Started" TO WS-Log-Message.
     PERFORM WriteDebugMessage.
 
     *> Show the main menu screen
     DISPLAY SC-Main-Menu.
 
     *> Write a debug log for the menu being shown
-    MOVE "DBG" TO WS-Debug-Level.
-    MOVE "Main Menu Screen Shown" TO WS-Debug-Message.
+    MOVE "DBG" TO WS-Log-Level.
+    MOVE "Main Menu Screen Shown" TO WS-Log-Message.
     PERFORM WriteDebugMessage.
 
     *> Accept input for the main menu screen
@@ -84,12 +84,33 @@ PROCEDURE DIVISION.
     *> Determine what to do depending on the menu choice
     EVALUATE WS-Main-Menu-Choice
       *> TODO -> Change Temp Logic
-      WHEN 1 THRU 3
-        DISPLAY SC-Debug-Screen
+      WHEN 1 THRU 2
+        DISPLAY SC-Debug
 
         *> Write to the debug log
-        MOVE "DBG" TO WS-Debug-Level
-        MOVE "Debug screen shown" TO WS-Debug-Message
+        MOVE "DBG" TO WS-Log-Level
+        MOVE "Debug screen shown" TO WS-Log-Message
+        PERFORM WriteDebugMessage
+
+        ACCEPT OMITTED
+
+        PERFORM CloseProgram
+
+      WHEN 3
+        DISPLAY SC-Settings
+
+        MOVE "DBG" TO WS-Log-Level
+        MOVE "Settings Menu Displayed" TO WS-Log-Message
+        PERFORM WriteDebugMessage
+
+        PERFORM UNTIL FUNCTION LOWER-CASE(WS-Settings-GoBack) EQUALS "y"
+          ACCEPT SC-Settings
+        END-PERFORM
+
+        DISPLAY SC-Debug
+
+        MOVE "DBG" TO WS-Log-Level
+        MOVE "Debug Menu Displayed" TO WS-Log-Message
         PERFORM WriteDebugMessage
 
         ACCEPT OMITTED
@@ -97,19 +118,19 @@ PROCEDURE DIVISION.
         PERFORM CloseProgram
       *> User chose to exit
       WHEN 4
-        MOVE "INF" TO WS-Debug-Level
-        MOVE "Exiting with status 0 (menu option 4)" TO WS-Debug-Message
+        MOVE "INF" TO WS-Log-Level
+        MOVE "Exiting with status 0 (menu option 4)" TO WS-Log-Message
         PERFORM WriteDebugMessage
         STOP RUN WITH NORMAL STATUS 0
 
       WHEN OTHER
-        MOVE "ERR" TO WS-Debug-Level
+        MOVE "ERR" TO WS-Log-Level
         STRING
           "Invalid menu option: " DELIMITED BY SIZE
           WS-Main-Menu-Choice DELIMITED BY SIZE
           ". Exiting with code 404" DELIMITED BY SIZE
 
-          INTO WS-Debug-Message
+          INTO WS-Log-Message
         END-STRING
 
         PERFORM WriteDebugMessage
@@ -128,14 +149,14 @@ PROCEDURE DIVISION.
     *> If it can't open successfully
     IF NOT Opened-Successfully THEN
       *> Store a message for the new log file
-      MOVE "WARN" TO WS-Debug-Level
-      MOVE "Debug File Recreated" TO WS-Debug-Message
+      MOVE "WARN" TO WS-Log-Level
+      MOVE "Debug File Recreated" TO WS-Log-Message
       *> Overwrite the file (or create it)
       OPEN OUTPUT Debug-Log-File
     END-IF.
 
     *> Initialise the temporary debug log variable
-    MOVE SPACES TO WS-Debug-Line.
+    MOVE SPACES TO WS-Log-Line.
 
     *> Build the debug log line
     STRING
@@ -143,16 +164,16 @@ PROCEDURE DIVISION.
       ", " DELIMITED BY SIZE
       WS-Time DELIMITED BY SIZE
       " [" DELIMITED BY SIZE
-      FUNCTION TRIM(WS-Debug-Level) DELIMITED BY SIZE
+      FUNCTION TRIM(WS-Log-Level) DELIMITED BY SIZE
       "] " DELIMITED BY SIZE
-      FUNCTION TRIM(WS-Debug-Message) DELIMITED BY SIZE
+      FUNCTION TRIM(WS-Log-Message) DELIMITED BY SIZE
 
       *> e.g.: 2026-04-20, 10:24 [DBG] Test
-      INTO WS-Debug-Line
+      INTO WS-Log-Line
     END-STRING.
 
     *> Write the debug line to the debug file and close it.
-    MOVE WS-Debug-Line TO DLF-Debug-Line.
+    MOVE WS-Log-Line TO DLF-Debug-Line.
     WRITE DLF-Debug-Line.
     CLOSE Debug-Log-File.
 
@@ -172,13 +193,13 @@ PROCEDURE DIVISION.
 
   *> Initialise the debug log's temporary variables
   InitialiseDebugInfo.
-    MOVE SPACES TO WS-Debug-Level.
-    MOVE SPACES TO WS-Debug-Message.
-    MOVE SPACES TO WS-Debug-Line.
+    MOVE SPACES TO WS-Log-Level.
+    MOVE SPACES TO WS-Log-Message.
+    MOVE SPACES TO WS-Log-Line.
 
   CloseProgram.
-    MOVE "INF" TO WS-Debug-Level.
-    MOVE "Exiting with status 0" TO WS-Debug-Message.
+    MOVE "INF" TO WS-Log-Level.
+    MOVE "Exiting with status 0" TO WS-Log-Message.
     PERFORM WriteDebugMessage.
     STOP RUN WITH NORMAL STATUS 0.
 
