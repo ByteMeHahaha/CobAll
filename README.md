@@ -33,7 +33,8 @@ projects:
 Alongside new features, such as:
 
 - Code split into different paragraphs
-- Writing debug logs to a file
+- Writing debug logs to a file with different log levels, e.g. `DBG`, `WARN`,
+  etc.
 - A main menu screen to decide what you want to do
 - A settings menu reading configs from a file
 
@@ -41,3 +42,13 @@ Alongside new features, such as:
 
 Because the "GUI" is just a "styled" terminal screen (text-based user interface)
 and not a proper GUI.
+
+GnuCOBOL's implementation of COBOL's `SCREEN` section is admittedly quite
+finicky with its user input.
+Because of this, the fields on the different TUI screens may be a bit (or very)
+buggy and/or unpredictable when typing input into them.
+
+<!-- TODO => Test if it's possible, then update this paragraph -->
+Furthermore, I currently don't know if it's possible to use the mouse to click
+and focus on a specific input field. To avoid unpredictable behaviour, use the
+arrow keys to navigate across fields.
