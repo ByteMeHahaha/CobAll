@@ -52,12 +52,16 @@ DATA DIVISION.
     *> User-provided values for use
     *> throughout the program
     01 WS-User-Input.
+      *> Choice of which screen to go to on the main menu
       05 WS-Main-Menu-Choice PIC 9 VALUE 0.
+      *> Option on settings screen to return to the menu screen
+      05 WS-Settings-GoBack PIC A VALUE "N".
 
   *> Menus and other screens
   SCREEN SECTION.
     COPY "Debug.cpy". *> Debug menu
     COPY "Menu.cpy". *> Main Menu
+    COPY "Settings.cpy". *> Settings Menu (WIP)
 
 PROCEDURE DIVISION.
   MainCode.
