@@ -34,7 +34,9 @@ Alongside new features, such as:
 
 - Code split into different paragraphs
 - Writing debug logs to a file with different log levels, e.g. `DBG`, `WARN`,
-  etc.
+  `INF`, etc.
+  - This is implemented using a subroutine, which I've personally never
+    been able to pull off until now
 - A main menu screen to decide what you want to do
 - A settings menu reading configs from a file
 
