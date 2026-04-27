@@ -50,7 +50,6 @@ finicky with its user input.
 Because of this, the fields on the different TUI screens may be a bit (or very)
 buggy and/or unpredictable when typing input into them.
 
-<!-- TODO => Test if it's possible, then update this paragraph -->
-Furthermore, I currently don't know if it's possible to use the mouse to click
-and focus on a specific input field. To avoid unpredictable behaviour, use the
+Furthermore, while it is possible to use the mouse to click
+and focus on a specific input field, to avoid unpredictable behaviour, use the
 arrow keys to navigate across fields.
