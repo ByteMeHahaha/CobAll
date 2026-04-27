@@ -18,6 +18,8 @@ DATA DIVISION.
         88 ValidMenuChoice VALUE 1 THRU 4.
       *> Option on settings screen to return to the menu screen
       05 WS-Settings-GoBack PIC A VALUE "N".
+      05 WS-Settings-Choices.
+        10 WS-Logging-Enabled PIC A VALUE "Y".
 
     01 WS-Log-Level PIC A(4).
     01 WS-Message PIC X(80).
@@ -49,9 +51,43 @@ PROCEDURE DIVISION.
     MOVE WS-Temp-Msg TO WS-Message.
     CALL "WriteDebugLog" USING WS-Log-Level WS-Message.
 
-    PERFORM ShowDebugScreen.
+    EVALUATE WS-Menu-Choice
+      WHEN 1 THRU 2
+        PERFORM ShowDebugScreen
+        PERFORM CloseProgram
 
-    STOP RUN.
+      WHEN 3
+        DISPLAY SC-Settings
+
+        MOVE "INF" TO WS-Log-Level
+        MOVE "Settings Screen Shown" TO WS-Message
+        CALL "WriteDebugLog" USING WS-Log-Level WS-Message
+
+        ACCEPT SC-Settings
+
+        PERFORM ShowDebugScreen
+        PERFORM CloseProgram
+      WHEN 4
+        PERFORM CloseProgram
+      WHEN OTHER
+        MOVE "ERR" TO WS-Log-Level
+        STRING
+          "Invalid Menu choice: " DELIMITED BY SIZE
+          WS-Menu-Choice DELIMITED BY SIZE
+
+          INTO WS-Message
+        END-STRING
+        CALL "WriteDebugLog" USING WS-Log-Level WS-Message
+        STOP RUN WITH ERROR 404
+    END-EVALUATE.
+
+    *> Should not hit this
+    STOP RUN WITH ERROR 1.
+
+  CloseProgram.
+    MOVE "INF" TO WS-Log-Level.
+    MOVE "Program Closing with Status 0" TO WS-Message.
+    CALL "WriteDebugLog" USING WS-Log-Level WS-Message.
 
   ShowDebugScreen.
     DISPLAY SC-Debug.
