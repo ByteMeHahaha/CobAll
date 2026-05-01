@@ -1,6 +1,13 @@
 IDENTIFICATION DIVISION.
   PROGRAM-ID. CobAll.
 
+ENVIRONMENT DIVISION.
+  INPUT-OUTPUT SECTION.
+    FILE-CONTROL.
+      SELECT ConfigFile ASSIGN TO "Settings.conf"
+        ORGANISATION LINE SEQUENTIAL
+        ACCESS MODE SEQUENTIAL.
+
 DATA DIVISION.
   WORKING-STORAGE SECTION.
     *> Log levels for debug file
@@ -78,7 +85,7 @@ PROCEDURE DIVISION.
           INTO WS-Message
         END-STRING
         CALL "WriteDebugLog" USING WS-Log-Level WS-Message
-        STOP RUN WITH ERROR 404
+        STOP RUN WITH ERROR 404 *> TODO => Add documentation for error codes
     END-EVALUATE.
 
     *> Should not hit this
