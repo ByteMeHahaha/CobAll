@@ -4,12 +4,22 @@ IDENTIFICATION DIVISION.
 ENVIRONMENT DIVISION.
   INPUT-OUTPUT SECTION.
     FILE-CONTROL.
-      SELECT ConfigFile ASSIGN TO "Settings.conf"
+      SELECT Config-File ASSIGN TO "Settings.ini"
         ORGANISATION LINE SEQUENTIAL
         ACCESS MODE SEQUENTIAL.
 
 DATA DIVISION.
+  FILE SECTION.
+    FD Config-File.
+    01 Config-Record.
+      05 Config-Line PIC X(101).
+
   WORKING-STORAGE SECTION.
+    01 WS-Config.
+      05 WS-Config-Key PIC X(50).
+      05 FILLER PIC X VALUE "=".
+      05 WS-Config-Value PIC X(50).
+
     *> Log levels for debug file
     01 WS-Log-Levels.
       05 WS-Log-Debug PIC X(3) VALUE "DBG".
