@@ -12,7 +12,15 @@ jobs:
       - name: Set up GnuCOBOL
         uses: fabasoad/setup-cobol-action@v1.6.1
       - name: Lint code
-        run: cobc -free -fsyntax-only -I ./src -I ./src/ui ./src/*.cob -Wall -Wextra -Wno-terminator
+        run: |
+          cobc -free
+          -fsyntax-only
+          -I ./src
+          -I ./src/ui
+          -I ../src/ui/error-scr ^
+          ./src/*.cob
+          -Wall -Wextra
+          -Wno-terminator
 
   compile:
     needs: lint
@@ -23,4 +31,12 @@ jobs:
       - name: Set up GnuCOBOL
         uses: fabasoad/setup-cobol-action@v1.6.1
       - name: Compile code
-        run: cobc -free -I ./src -I ./src/ui -x ./src/main.cob ./src/*.cob -o CobAll -w -q
+        run: |
+          cobc -free
+          -I ./src
+          -I ./src/ui
+          -I ../src/ui/error-scr
+          -x ./src/main.cob
+          ./src/*.cob
+          -o CobAll
+          -w -q
