@@ -57,7 +57,7 @@ PROCEDURE DIVISION.
       WHEN 1 THRU 3
         PERFORM ShowDebugScreen
         PERFORM CloseProgram
-      WHEN 4
+      WHEN 9
         PERFORM CloseProgram
       WHEN OTHER
         MOVE 595 TO WS-Error-Code
