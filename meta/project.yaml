@@ -10,6 +10,8 @@ project-meta:
 build:
   dev-environments:
     - Windows 11
+  test-environments:
+    - Windows 11
   target-platforms:
     - Windows 11
     - Windows 10
