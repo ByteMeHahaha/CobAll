@@ -30,7 +30,6 @@ DATA DIVISION.
   SCREEN SECTION.
     COPY "Debug.cpy". *> Debug menu
     COPY "Menu.cpy". *> Main Menu
-    COPY "Settings.cpy". *> Settings Menu (WIP)
 
 PROCEDURE DIVISION.
   MainCode.
@@ -52,19 +51,7 @@ PROCEDURE DIVISION.
     CALL "WriteDebugLog" USING WS-Log-Level WS-Message.
 
     EVALUATE WS-Menu-Choice
-      WHEN 1 THRU 2
-        PERFORM ShowDebugScreen
-        PERFORM CloseProgram
-
-      WHEN 3
-        DISPLAY SC-Settings
-
-        MOVE "INF" TO WS-Log-Level
-        MOVE "Settings Screen Shown" TO WS-Message
-        CALL "WriteDebugLog" USING WS-Log-Level WS-Message
-
-        ACCEPT SC-Settings
-
+      WHEN 1 THRU 3
         PERFORM ShowDebugScreen
         PERFORM CloseProgram
       WHEN 4
