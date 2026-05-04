@@ -15,7 +15,7 @@ demo.
 
 - [CobAll](#coball)
   - [About CobAll](#about-coball)
-  - [Notes About User Input](#notes-about-user-input)
+  - [Notes About The Program](#notes-about-the-program)
     - [Somewhat Finicky Screen Input](#somewhat-finicky-screen-input)
 
 ---
@@ -40,7 +40,7 @@ Alongside new features, such as:
     been able to pull off until now
 - A main menu screen to decide what screen you want to go to
 
-## Notes About User Input
+## Notes About The Program
 
 ### Somewhat Finicky Screen Input
 
