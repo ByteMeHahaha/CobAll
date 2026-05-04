@@ -10,6 +10,9 @@ DATA DIVISION.
     01 LK-Error-Code PIC 999.
     01 LK-Error-Msg PIC X(40).
 
+  SCREEN SECTION.
+    COPY "ErrorCloseScr.cpy". *> Error Screen
+
 PROCEDURE DIVISION USING LK-Error-Code LK-Error-Msg.
   MOVE "ERR" TO LS-Log-Level.
 
@@ -23,6 +26,9 @@ PROCEDURE DIVISION USING LK-Error-Code LK-Error-Msg.
   END-STRING.
 
   CALL "WriteDebugLog" USING LS-Log-Level LS-Log-Msg.
+
+  DISPLAY SC-Err-Close.
+  ACCEPT OMITTED.
 
   STOP RUN WITH ERROR LK-Error-Code.
 
