@@ -35,7 +35,7 @@ Alongside new features, such as:
 
 - Code split into different paragraphs
 - Writing debug logs to a file with different log levels, e.g. `DBG`, `WARN`,
-  `INF`, etc.
+  `INF`, `ERR`, etc.
   - This is implemented using a subroutine, which I've personally never
     been able to pull off until now
 - A main menu screen to decide what screen you want to go to

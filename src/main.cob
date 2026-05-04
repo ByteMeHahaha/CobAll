@@ -3,6 +3,13 @@ IDENTIFICATION DIVISION.
 
 DATA DIVISION.
   WORKING-STORAGE SECTION.
+    *> Error code (logged on exit).
+    01 WS-Error-Code PIC 999.
+      88 Invalid-Menu-Choice VALUE 595.
+      88 File-Not-Found VALUE 404.
+      88 Generic-Error VALUE 101.
+    01 WS-Error-Msg PIC X(40).
+
     *> Log levels for debug file
     01 WS-Log-Levels.
       05 WS-Log-Debug PIC X(3) VALUE "DBG".
@@ -16,10 +23,6 @@ DATA DIVISION.
       *> Choice of which screen to go to on the main menu
       05 WS-Menu-Choice PIC 9 VALUE 0.
         88 ValidMenuChoice VALUE 1 THRU 4.
-      *> Option on settings screen to return to the menu screen
-      05 WS-Settings-GoBack PIC A VALUE "N".
-      05 WS-Settings-Choices.
-        10 WS-Logging-Enabled PIC A VALUE "Y".
 
     01 WS-Log-Level PIC A(4).
     01 WS-Message PIC X(80).
@@ -57,15 +60,14 @@ PROCEDURE DIVISION.
       WHEN 4
         PERFORM CloseProgram
       WHEN OTHER
-        MOVE "ERR" TO WS-Log-Level
+        MOVE 595 TO WS-Error-Code
         STRING
-          "Invalid Menu choice: " DELIMITED BY SIZE
+          "Invalid menu choice: " DELIMITED BY SIZE
           WS-Menu-Choice DELIMITED BY SIZE
 
-          INTO WS-Message
+          INTO WS-Error-Msg
         END-STRING
-        CALL "WriteDebugLog" USING WS-Log-Level WS-Message
-        STOP RUN WITH ERROR 404 *> TODO => Add documentation for error codes
+        CALL "CloseWithError" USING WS-Error-Code WS-Error-Msg
     END-EVALUATE.
 
     *> Should not hit this
