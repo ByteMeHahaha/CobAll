@@ -15,7 +15,8 @@ demo.
 
 - [CobAll](#coball)
   - [About CobAll](#about-coball)
-    - [Notes About User Input](#notes-about-user-input)
+  - [Notes About User Input](#notes-about-user-input)
+    - [Somewhat Finicky Screen Input](#somewhat-finicky-screen-input)
 
 ---
 
@@ -39,7 +40,9 @@ Alongside new features, such as:
     been able to pull off until now
 - A main menu screen to decide what screen you want to go to
 
-### Notes About User Input
+## Notes About User Input
+
+### Somewhat Finicky Screen Input
 
 Because the "GUI" is just a "styled" terminal screen (text-based user interface)
 and not a proper GUI.
