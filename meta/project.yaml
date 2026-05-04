@@ -6,7 +6,7 @@ project-meta:
     - GnuCOBOL
   status: Experimental
   license: MIT
-  version: 0.0.5
+  version: 0.1.0
 build:
   dev-environments:
     - Windows 11
