@@ -1,0 +1,4 @@
+IDENTIFICATION DIVISION.
+PROGRAM-ID. CloseWithError.
+
+END PROGRAM CloseWithError.
