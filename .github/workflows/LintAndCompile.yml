@@ -17,7 +17,7 @@ jobs:
           -fsyntax-only
           -I ./src
           -I ./src/ui
-          -I ../src/ui/error-scr ^
+          -I ../src/ui/error-scr
           ./src/*.cob
           -Wall -Wextra
           -Wno-terminator
