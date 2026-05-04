@@ -17,6 +17,8 @@ demo.
   - [About CobAll](#about-coball)
   - [Notes About The Program](#notes-about-the-program)
     - [Somewhat Finicky Screen Input](#somewhat-finicky-screen-input)
+  - [Notes About This Repository](#notes-about-this-repository)
+    - [Pull Requests are Temporarily Disabled](#pull-requests-are-temporarily-disabled)
 
 ---
 
@@ -55,3 +57,12 @@ buggy and/or unpredictable when typing input into them.
 Furthermore, while it is possible to use the mouse to click and focus on a
 specific input field, to avoid unpredictable behaviour, use the arrow keys to
 navigate across fields.
+
+## Notes About This Repository
+
+### Pull Requests are Temporarily Disabled
+
+Pull requests for this repository have been disabled until the app hits version
+`1.0.0`. I would prefer to work on the app alone, since it's part of my
+portfolio. After `v1.0.0`, I'll re-enable PRs if you want to work with me and
+suggest changes. But for now, please open an Issue if you have a problem.
