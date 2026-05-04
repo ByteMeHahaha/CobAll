@@ -11,8 +11,7 @@
   05 LINE 9 COL 7 VALUE '2. Sort and Merge Files'.
   05 LINE 10 COL 7 VALUE "3. Debug".
   05 LINE 11 COL 7 VALUE "4. Exit".
-
   05 LINE 13 COL 3 VALUE "Your choice: ".
   05 LINE 13 COL + 1 PIC 9 USING WS-Menu-Choice
     REVERSE-VIDEO
-    REQUIRED.
+    REQUIRED FULL.
