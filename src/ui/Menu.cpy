@@ -9,7 +9,7 @@
   05 LINE 6 COL 3 VALUE "----------------------------".
   05 LINE 8 COL 7 VALUE '1. "Sort ''n'' Report"'.
   05 LINE 9 COL 7 VALUE '2. Sort and Merge Files'.
-  05 LINE 10 COL 7 VALUE "3. Settings".
+  05 LINE 10 COL 7 VALUE "3. Debug".
   05 LINE 11 COL 7 VALUE "4. Exit".
 
   05 LINE 13 COL 3 VALUE "Your choice: ".

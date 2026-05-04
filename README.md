@@ -37,8 +37,7 @@ Alongside new features, such as:
   `INF`, etc.
   - This is implemented using a subroutine, which I've personally never
     been able to pull off until now
-- A main menu screen to decide what you want to do
-- A settings menu reading configs from a file
+- A main menu screen to decide what screen you want to go to
 
 ### Notes About User Input
 
