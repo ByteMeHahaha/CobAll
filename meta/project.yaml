@@ -3,7 +3,7 @@ project-meta:
   date-started: 2026-04-19
   last-updated: 2026-05-04
   languages:
-    - COBOL
+    - GnuCOBOL
   status: Experimental
   license: MIT
   version: 0.0.5
@@ -22,4 +22,4 @@ team:
   contributors:
     - name: Ethan Kletschke
       role: Author and owner
-      github-username: ethanKletschke
+      github-username: ByteMeHahaha

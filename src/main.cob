@@ -62,7 +62,7 @@ PROCEDURE DIVISION.
       WHEN OTHER
         MOVE 595 TO WS-Error-Code
         STRING
-          "Invalid menu choice: " DELIMITED BY SIZE
+          "Invalid menu choice - " DELIMITED BY SIZE
           WS-Menu-Choice DELIMITED BY SIZE
 
           INTO WS-Error-Msg

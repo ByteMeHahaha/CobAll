@@ -12,6 +12,7 @@ DATA DIVISION.
 
   SCREEN SECTION.
     COPY "ErrorCloseScr.cpy". *> Error Screen
+    COPY "MenuChoiceErr.cpy".
 
 PROCEDURE DIVISION USING LK-Error-Code LK-Error-Msg.
   MOVE "ERR" TO LS-Log-Level.
@@ -27,8 +28,14 @@ PROCEDURE DIVISION USING LK-Error-Code LK-Error-Msg.
 
   CALL "WriteDebugLog" USING LS-Log-Level LS-Log-Msg.
 
-  DISPLAY SC-Err-Close.
-  ACCEPT OMITTED.
+  EVALUATE LK-Error-Code
+    WHEN 595
+      DISPLAY SC-Menu-Error
+      ACCEPT OMITTED
+    WHEN OTHER
+      DISPLAY SC-Err-Close
+      ACCEPT OMITTED
+  END-EVALUATE.
 
   STOP RUN WITH ERROR LK-Error-Code.
 
